@@ -25,7 +25,7 @@ SECRET_KEY = '45xr&77po#m(i(!$ln$74h7uwpo4qj)*xslxs42bu1sokkieb='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'annass.christian-groeber.ch']
 
 
 # Application definition
