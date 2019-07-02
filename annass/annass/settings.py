@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+import os, json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -159,4 +159,18 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
 )
+
+
+MARTOR_ENABLE_CONFIGS = {
+    'imgur': 'true',     # to enable/disable imgur/custom uploader.
+    'mention': 'false',  # to enable/disable mention
+    'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+    'living': 'false',   # to enable/disable live updates in preview
+}
+
+with open(os.path.join(BASE_DIR, 'imgur.json')) as json_file:
+    data = json.load(json_file)
+    MARTOR_IMGUR_CLIENT_ID = data['id']
+    MARTOR_IMGUR_API_KEY = data['secret']
+
 

@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Security Officer Wanted - {% block title %}Homepage{% endblock %}</title>
+    <title>Annass - {% block title %}Homepage{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="{% sass_src 'scss/Site.scss' %}">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
@@ -38,6 +38,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
+            <li><a href="{% url 'ueber-mich' %}">Über mich</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

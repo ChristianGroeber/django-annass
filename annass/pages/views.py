@@ -9,5 +9,5 @@ def index(request):
 
 
 def ueber_mich(request):
-    # ueber_mich = UeberMich.objects.get(pk=0)
-    return render(request, 'pages/ueber-mich.html')
+    ueber_mich = UeberMich.objects.get(pk=1)
+    return render(request, 'pages/ueber-mich.html', {'ueber_mich': ueber_mich})
