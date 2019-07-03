@@ -1,0 +1,11 @@
+@import 'imports';
+body {
+    background-color: $background-color;
+    color: $text-color;
+    a {
+        color: $accent-color;
+    }
+    a:hover {
+        color: lighten($accent-color, 20);
+    }
+}

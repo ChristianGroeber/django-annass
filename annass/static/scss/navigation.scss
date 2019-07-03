@@ -1,0 +1,16 @@
+nav {
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    a {
+        color: $text-color !important;
+    }
+}
+
+.show-nav {
+    position: fixed !important;
+    display: none;
+}
+
+.hide-nav {
+    position: relative !important;
+}
