@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os, json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import time
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -41,12 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'martor',
-]
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
 ]
 
 MIDDLEWARE = [
@@ -162,17 +158,19 @@ TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
 )
 
-
 MARTOR_ENABLE_CONFIGS = {
     'imgur': 'true',     # to enable/disable imgur/custom uploader.
-    'mention': 'false',  # to enable/disable mention
+    'mention': 'true',  # to enable/disable mention
     'jquery': 'true',    # to include/revoke jquery (require for admin default django)
-    'living': 'false',   # to enable/disable live updates in preview
+    'living': 'true',   # to enable/disable live updates in preview
 }
 
-with open(os.path.join(BASE_DIR, 'imgur.json')) as json_file:
-    data = json.load(json_file)
-    MARTOR_IMGUR_CLIENT_ID = data['id']
-    MARTOR_IMGUR_API_KEY = data['secret']
+CSRF_COOKIE_HTTPONLY = False
 
+MARTOR_UPLOAD_PATH = 'images/uploads/{}'.format(time.strftime("%Y/%m/%d/"))
+# MARTOR_UPLOAD_URL = os.path.join(SETTINGS_PATH, 'media', 'uploader')
+MARTOR_UPLOAD_URL = '/media/'
 
+MAX_IMAGE_UPLOAD_SIZE = 5242880  # 5MB
+
+MARTOR_ENABLE_LABEL = True

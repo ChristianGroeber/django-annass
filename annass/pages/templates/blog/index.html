@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load martortags %}
+
 
 {% block title %}Blog{% endblock %}
 
@@ -7,6 +9,7 @@
 {% for entry in blogentries %}
 <div class="blogentry card">
     <h3>{{ entry.title }}</h3>
+    {{ entry.content|safe_markdown }}
 </div>
 {% endfor %}
 {% endblock %}
