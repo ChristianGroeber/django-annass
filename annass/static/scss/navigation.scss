@@ -4,6 +4,17 @@ nav {
     a {
         color: $text-color !important;
     }
+    .icon-bar {
+        background-color: black !important;
+    }
+    .navbar-inverse,
+    .navbar-collapse {
+        border-color: none !important;
+    }
+    button.navbar-toggle {
+        color: white !important;
+        background-color: white !important;
+    }
 }
 
 .show-nav {

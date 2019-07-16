@@ -9,9 +9,6 @@ $(document).ready(function() {
     $(document).scroll(function() {
         var newScrollTop = $(document).scrollTop();
         console.log(newScrollTop);
-        var navTop = $('nav').css('top');
-        navTop = navTop.substring(0, navTop.length - 2);
-        navTop = parseInt(navTop);
         if (lastScrollTop > newScrollTop && !navShowing) {
             navShowing = true;
             $('nav').addClass('show-nav');
@@ -28,5 +25,15 @@ $(document).ready(function() {
             $('main').css('padding-top', '0');
         }
         lastScrollTop = newScrollTop;
+    })
+    var toCheck = $('.navbar-collapse');
+    toCheck.toggle();
+    toCheck.slideToggle();
+    $('button.navbar-toggle').click(function() {
+        if (toCheck.hasClass('collapse')) {
+            toCheck.slideToggle();
+        } else {
+            toCheck.slideToggle();
+        }
     })
 })

@@ -8,4 +8,12 @@ body {
     a:hover {
         color: lighten($accent-color, 20);
     }
+    footer {
+        .version {
+            color: rgb(128, 128, 128);
+            font-style: italic;
+            font-size: 0.75em;
+            text-align: center;
+        }
+    }
 }
