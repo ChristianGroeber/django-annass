@@ -8,6 +8,9 @@ body {
     a:hover {
         color: lighten($accent-color, 20);
     }
+    .card {
+        @include card;
+    }
     footer {
         .version {
             color: rgb(128, 128, 128);

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<h1>Blog</h1>
+{% for entry in blogentries %}
+<div class="blogentry card">
+    <h3>{{ entry.title }}</h3>
+</div>
+{% endfor %}
+{% endblock %}
