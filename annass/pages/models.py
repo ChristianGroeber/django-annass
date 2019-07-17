@@ -7,7 +7,6 @@ from martor.models import MartorField
 
 class UeberMich(models.Model):
     text = MartorField()
-    image = ImageField(upload_to='test', blank=True)
 
     def __str__(self):
         return 'Über mich'

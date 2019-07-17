@@ -11,6 +11,9 @@ body {
     .card {
         @include card;
     }
+    .date-published {
+        @include publishing-date;
+    }
     footer {
         .version {
             color: rgb(128, 128, 128);
