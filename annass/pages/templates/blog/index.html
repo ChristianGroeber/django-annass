@@ -5,12 +5,16 @@
 {% block title %}Blog{% endblock %}
 
 {% block content %}
-<h1>Blog</h1>
-{% for entry in blogentries %}
-<div class="blogentry card">
-    <h3>{{ entry.title }}</h3>
-    <p class="date-published">{{ entry.date_posted }}</p>
-    {{ entry.content|safe_markdown }}
-</div>
-{% endfor %}
+    <h1>Blog</h1>
+    <div class="post-feed">
+        {% for entry in blogentries %}
+            <div class="blogentry card">
+                <a href="/post/{{ entry.id }}"><h3 class="link-title">{{ entry.title }}</h3></a>
+                <p class="date-published">{{ entry.date_posted }}</p>
+                <p>{{ entry.description }}</p>
+                {#    {{ entry.content|safe_markdown }}#}
+                <a href="/post/{{ entry.id }}">weiter lesen</a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -2,3 +2,4 @@ venv/*
 annass/pages/migrations/*
 *.sqlite3
 annass/media
+annass/static_cdn

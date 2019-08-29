@@ -4,4 +4,4 @@ def kontakt(request):
 
 
 def version(request):
-    return {'version': '1.2'}
+    return {'version': '1.3'}

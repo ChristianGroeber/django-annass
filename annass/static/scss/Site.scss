@@ -1,19 +1,67 @@
 @import 'imports';
+
 body {
     background-color: $background-color;
     color: $text-color;
+
     a {
         color: $accent-color;
     }
+
     a:hover {
         color: lighten($accent-color, 20);
     }
-    .card {
-        @include card;
+
+    h3.link-title {
+        color: $text-color;
+        margin-bottom: 0;
     }
+
+    .post-feed {
+        column-gap: 20px;
+        -webkit-column-gap: 20px;
+        -moz-column-gap: 20px;
+        .card {
+            @include card;
+        }
+    }
+
+    @media(min-width: 400px) {
+        .post-feed {
+            column-count: 1;
+            -webkit-column-count: 1;
+            -moz-column-count: 1;
+        }
+    }
+
+    @media(min-width: 800px) {
+        .post-feed {
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+        }
+    }
+
+    @media(min-width: 1200px) {
+        .post-feed {
+            column-count: 3;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+        }
+    }
+
+
     .date-published {
         @include publishing-date;
     }
+
+    .blog {
+        width: 80%;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+    }
+
     footer {
         .version {
             color: rgb(128, 128, 128);
