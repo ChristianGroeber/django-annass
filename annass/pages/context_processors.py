@@ -1,6 +1,6 @@
 from .models import Kontakt
 def kontakt(request):
-    return {'kontakt': Kontakt.objects.get(pk=1)}
+    return {'kontakt': Kontakt.objects.get(pk=2)}
 
 
 def version(request):

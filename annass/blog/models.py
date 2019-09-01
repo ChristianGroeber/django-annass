@@ -13,6 +13,7 @@ class BlogEntry(models.Model):
     # main_image = ImageField(upload_to="main-images")
     content = MartorField()
     date_posted = DateTimeField(default=timezone.now)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

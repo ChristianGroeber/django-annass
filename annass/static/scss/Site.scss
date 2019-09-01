@@ -17,6 +17,11 @@ body {
         margin-bottom: 0;
     }
 
+    img{
+        max-width: 75%;
+        display: block;
+    }
+
     .post-feed {
         column-gap: 20px;
         -webkit-column-gap: 20px;
