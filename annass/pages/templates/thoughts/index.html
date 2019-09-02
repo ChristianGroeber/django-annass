@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Zwischen Himmel und Erde
+{% endblock %}
+
+{% block content %}
+    <h1>Zwischen Himmel und Erde</h1>
+    <div class="post-feed">
+        {% for thought in thoughts %}
+            <div class="blog">
+                {{ thought }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

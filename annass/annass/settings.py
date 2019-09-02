@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'annass.christian-groeber.ch']
 INSTALLED_APPS = [
     'blog',
     'pages',
+    'thoughts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

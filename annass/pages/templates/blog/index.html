@@ -9,11 +9,15 @@
     <div class="post-feed">
         {% for entry in blogentries %}
             <div class="blogentry card">
-                <a href="/post/{{ entry.id }}"><h3 class="link-title">{{ entry.title }}</h3></a>
-                <p class="date-published">{{ entry.date_posted }}</p>
-                <p>{{ entry.description }}</p>
-                {#    {{ entry.content|safe_markdown }}#}
-                <a href="/post/{{ entry.id }}">weiter lesen</a>
+                {% if entry.main_image %}
+                    <img src="{{ entry.main_image.url }}">
+                {% endif %}
+                <div class="post-description">
+                    <a href="post/{{ entry.id }}"><h3 class="link-title">{{ entry.title }}</h3></a>
+                    <p class="date-published">{{ entry.date_posted }}</p>
+                    <p>{{ entry.description }}</p>
+                    <a href="/post/{{ entry.id }}">weiter lesen</a>
+                </div>
             </div>
         {% endfor %}
     </div>

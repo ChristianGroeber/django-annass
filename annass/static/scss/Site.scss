@@ -27,7 +27,11 @@ body {
         -webkit-column-gap: 20px;
         -moz-column-gap: 20px;
         .card {
+            -webkit-column-break-inside: avoid;
             @include card;
+            .post-description {
+                padding: 20px;
+            }
         }
     }
 

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.db import models
 from martor.widgets import AdminMartorWidget
+from django.db import models
 
-from .models import BlogEntry
+from .models import Thought
 
 
 # Register your models here.
@@ -13,7 +13,7 @@ class YourModelAdmin(admin.ModelAdmin):
         models.TextField: {'widget': AdminMartorWidget},
     }
     exclude = ('date_posted', )
-    list_display = ('title', 'date_posted', 'active')
+    list_display = ('title', 'date_posted')
 
 
-admin.site.register(BlogEntry, YourModelAdmin)
+admin.site.register(Thought, YourModelAdmin)
