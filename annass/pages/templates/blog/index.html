@@ -10,13 +10,15 @@
         {% for entry in blogentries %}
             <div class="blogentry card">
                 {% if entry.main_image %}
-                    <img src="{{ entry.main_image.url }}">
+                    <a href="{% url 'post' entry.id %}">
+                        <img src="{{ entry.main_image.url }}">
+                    </a>
                 {% endif %}
                 <div class="post-description">
-                    <a href="post/{{ entry.id }}"><h3 class="link-title">{{ entry.title }}</h3></a>
+                    <a href="{% url 'post' entry.id %}"><h3 class="link-title">{{ entry.title }}</h3></a>
                     <p class="date-published">{{ entry.date_posted }}</p>
                     <p>{{ entry.description }}</p>
-                    <a href="/post/{{ entry.id }}">weiter lesen</a>
+                    <a href="{% url 'post' entry.id %}">weiter lesen</a>
                 </div>
             </div>
         {% endfor %}

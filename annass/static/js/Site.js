@@ -1,12 +1,20 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('main').css('padding-top', $('nav').height() + 'px');
-    $('.navbar-toggle').click(function() {
-        var panel = $('#navbar');
+    let toggled = false;
+    $('.navbar-toggle').click(function () {
+        toggled = !toggled;
+        console.log(toggled);
+        let panel = $('#navbar');
         panel.toggleClass('collapse');
-    })
+        /*if (!toggled) {
+            $('nav').css('box-shadow', '0px 8px 5px 0px rgba(0, 0, 0, 0.3)');
+        } else {
+            $('nav').css('box-shadow', '0 0 0 0 rgba(0,0,0,0)');
+        }*/
+    });
     var lastScrollTop = 0;
     var navShowing = true;
-    $(document).scroll(function() {
+    $(document).scroll(function () {
         var newScrollTop = $(document).scrollTop();
         console.log(newScrollTop);
         if (lastScrollTop > newScrollTop && !navShowing) {
@@ -25,15 +33,15 @@ $(document).ready(function() {
             $('main').css('padding-top', '0');
         }
         lastScrollTop = newScrollTop;
-    })
+    });
     var toCheck = $('.navbar-collapse');
     toCheck.toggle();
     toCheck.slideToggle();
-    $('button.navbar-toggle').click(function() {
+    $('button.navbar-toggle').click(function () {
         if (toCheck.hasClass('collapse')) {
             toCheck.slideToggle();
         } else {
             toCheck.slideToggle();
         }
     })
-})
+});

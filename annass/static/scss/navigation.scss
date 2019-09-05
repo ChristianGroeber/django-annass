@@ -1,23 +1,32 @@
 nav {
-    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
     background-color: white;
     z-index: 20;
+    display: block;
+    width: 100%;
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.3);
+
     a {
         color: $text-color !important;
     }
+
     .icon-bar {
         background-color: black !important;
     }
+
     .navbar-inverse,
     .navbar-collapse {
         border-color: none !important;
         margin-top: 10px;
+        background-color: white;
+        // box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.3);
     }
+
     button.navbar-toggle {
         color: white !important;
         background-color: white !important;
     }
-    .container{
+
+    .container {
         height: 80px;
     }
 }
@@ -31,11 +40,12 @@ nav {
     position: relative !important;
 }
 
-.navbar-brand{
+.navbar-brand {
     max-height: 100%;
     padding-top: 2px !important;
     height: inherit !important;
-    img{
+
+    img {
         max-height: 100% !important;
         max-width: 100% !important;
         display: inline;
