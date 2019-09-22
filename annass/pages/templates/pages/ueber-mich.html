@@ -2,5 +2,16 @@
 {% load martortags %}
 
 {% block content %}
-{{ ueber_mich.text|safe_markdown }}
+    <div class="ueber-mich">
+        <div class="row">
+            <div class="col-sm-8 ueber-mich-text">
+                {{ ueber_mich.text|safe_markdown }}
+            </div>
+            {% if ueber_mich.profile_image %}
+                <div class="col-sm-4">
+                    <img class="profile-image" src="{{ ueber_mich.profile_image.url }}" width="300">
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -6,6 +6,7 @@ from martor.models import MartorField
 
 
 class UeberMich(models.Model):
+    profile_image = ImageField(upload_to="profile_iamges", verbose_name="Profilbild", null=True, blank=True)
     text = MartorField()
 
     def __str__(self):
