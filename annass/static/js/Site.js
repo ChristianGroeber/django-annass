@@ -1,13 +1,16 @@
 $(document).ready(function () {
     $('main').css('padding-top', $('nav').height() + 'px');
     let toggled = false;
+
     $('.navbar-toggle').click(function () {
         toggled = !toggled;
         let panel = $('#navbar');
         panel.toggleClass('collapse');
     });
+
     let lastScrollTop = 0;
     let navShowing = true;
+
     $(document).scroll(function () {
         let newScrollTop = $(document).scrollTop();
         let nav = $('nav');
@@ -26,8 +29,17 @@ $(document).ready(function () {
             nav.addClass('hide-nav');
             $('main').css('padding-top', '0');
         }
+
+        if (newScrollTop == 0) {
+            console.log(newScrollTop);
+            console.log('paddening');
+            console.log($('main'));
+            $('main').css('padding-top', '100px');
+        }
+
         lastScrollTop = newScrollTop;
     });
+
     let toCheck = $('.navbar-collapse');
     toCheck.toggle();
     toCheck.slideToggle();

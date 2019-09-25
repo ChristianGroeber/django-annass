@@ -1,5 +1,32 @@
 .thought-feed {
-    .thought {
+    width: 80%;
+    background-color: white;
+    margin: 0 auto;
 
+    .thought {
+        background-color: #fff8eb;
+        width: 300px;
+        padding: 5%;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    @media(max-width: 800px) {
+    	.thought {
+    		width: 90%;
+    		margin: 0 auto;
+    	}
+    }
+
+    @media(min-width: 420px) {
+    	.thought {
+    		width: 300px;
+    	}
+    }
+
+    @media(min-width: 830px) {
+    	.thought {
+    		width: 70%;
+    	}
     }
 }

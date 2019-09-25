@@ -9,7 +9,8 @@
     <div class="thought-feed">
         {% for thought in thoughts %}
             <div class="thought">
-                {{ thought }}
+                <h2>{{ thought }}</h2>
+                <p>{{ thought.content }}</p>
             </div>
         {% endfor %}
     </div>
