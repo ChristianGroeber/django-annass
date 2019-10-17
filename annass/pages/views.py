@@ -11,13 +11,12 @@ from django.utils.translation import ugettext_lazy as _
 from martor.utils import LazyEncoder
 
 from .models import UeberMich, Kontakt
-
-
-# Create your views here.
+from blog.models import BlogEntry
 
 
 def index(request):
-    return render(request, 'pages/index.html')
+    posts = BlogEntry.objects.filter(on_home=True)
+    return render(request, 'blog/index.html', {"blogentries": posts})
 
 
 def ueber_mich(request):
@@ -26,7 +25,7 @@ def ueber_mich(request):
 
 
 def kontakt(request):
-    kontakt = Kontakt.objects.get(pk=1)
+    kontakt = Kontakt.objects.get(pk=2)
     return render(request, 'pages/kontakt.html', {'kontakt': kontakt})
 
 
