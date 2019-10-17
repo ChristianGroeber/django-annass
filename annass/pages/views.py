@@ -16,7 +16,7 @@ from blog.models import BlogEntry
 
 def index(request):
     posts = BlogEntry.objects.filter(on_home=True)
-    return render(request, 'blog/index.html', {"blogentries": posts})
+    return render(request, 'pages/index.html', {"blogentries": posts})
 
 
 def ueber_mich(request):
