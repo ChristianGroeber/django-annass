@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('blog/', include('blog.urls')),
     path('zwischen-himmel-und-erde/', include('thoughts.urls')),
+    path('shop/', include('shop.urls')),
     path('martor/', include('martor.urls')),
     url(r'^media/$', markdown_uploader, name='markdown_uploader_page'),
 ]
