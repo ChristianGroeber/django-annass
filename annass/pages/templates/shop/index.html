@@ -6,6 +6,32 @@
 {% block title %}Shop{% endblock %}
 
 {% block content %}
+    <script src="{% static 'js/ShoppingCart.js' %}"></script>
+    <script>
+        function updateShoppingCart() {
+            $.ajax({
+                url: "{% url 'update_shopping_cart' %}",
+                method: "POST",
+                data: {shoppingCart: 1},
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+
+        function addItemToShoppingCart() {
+            $.ajax({
+                url: "",
+                method: "POST",
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    </script>
+
+
+
 {#    <div class="shopping-cart row">#}
 {#        <div class="col-sm-2">#}
 {#            <p>Preis: CHF {{ price }}.-</p>#}
