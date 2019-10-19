@@ -30,3 +30,16 @@ def add_item_to_cart(request):
     cartItem.cart = cart
 
     return JsonResponse({})
+
+
+def load_product_category(request):
+    category = ProductCategory.objects.get(name=request.POST.get('categoryName'))
+    products = category.products.all()
+    return JsonResponse({'products': queryset_to_array(products), 'categoryName': request.POST.get('categoryName')})
+
+
+def queryset_to_array(queryset):
+    ret = []
+    for item in queryset:
+        ret.append(item.to_array())
+    return ret

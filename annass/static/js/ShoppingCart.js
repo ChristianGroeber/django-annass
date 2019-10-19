@@ -43,12 +43,116 @@ class ShoppingCart {
     }
 }
 
+class ProductCategory {
+    constructor(name) {
+        this.name = name;
+        this.products = [];
+    }
+
+    addProduct(product) {
+        let found = false;
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].id === product.id) {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            this.products.push(product);
+        }
+
+        return this;
+    }
+
+    getProducts() {
+        return this.products;
+    }
+
+    getProduct(productId) {
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].id === parseInt(productId)) {
+                return this.products[i];
+            }
+        }
+
+        return null;
+    }
+
+    build() {
+        let productList = "<div class='product-list' id='" + this.name + "'>";
+        for (let i = 0; i < this.products.length; i++) {
+            productList += this.products[i].build();
+        }
+
+        productList += "</div>";
+
+        $('#products-view').html(productList);
+
+        return this;
+    }
+}
+
 class Product {
-    constructor(id) {
+    constructor(id, name, price, description, imageUrl) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.price = price;
     }
 
     getId() {
         return this.id;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    setName(name) {
+        this.name = name;
+        return this;
+    }
+
+    getDescription() {
+        return this.description;
+    }
+
+    setDescription(description) {
+        this.description = description;
+        return this;
+    }
+
+    getImageUrl() {
+        return this.imageUrl;
+    }
+
+    setImageUrl(imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    getPrice() {
+        return this.price;
+    }
+
+    setPrice(price) {
+        this.price = price;
+        return this;
+    }
+
+    build() {
+        return "" +
+            "<div class='product'>" +
+            "   <div class='product-image'>" +
+            "       <img src='" + this.imageUrl + "'>" +
+            "   </div>" +
+            "   <div class='product-title'>" +
+            "       <h3>" + this.name + "</h3>" +
+            "   </div>" +
+            "   <div class='product-price'>" +
+            "       <p>" + this.price + "</p>" +
+            "   </div>" +
+            "</div>"
     }
 }

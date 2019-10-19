@@ -9,6 +9,11 @@
     {% csrf_token %}
     <script src="{% static 'js/ShoppingCart.js' %}"></script>
     <script>
+
+        $(document).ready(function () {
+            loadProductCategory("Alle");
+        });
+
         document.cookie = "shoppingCartId={{ shoppingCartId }}";
 
         function getCookie(name) {
@@ -63,19 +68,38 @@
                 }
             })
         }
+
+        function loadProductCategory(categoryName) {
+            $.ajax({
+                url: "{% url 'load_category' %}",
+                method: "POST",
+                data: {categoryName: categoryName},
+                success: function (data) {
+                    console.log(data);
+                    let category = new ProductCategory(data['categoryName']);
+                    for (let i = 0; i < data['products'].length; i++) {
+                        let jsonProduct = data['products'][i];
+                        let product = new Product(jsonProduct['id'], jsonProduct['name'], jsonProduct['price'], jsonProduct['description'], jsonProduct['image']);
+                        category.addProduct(product);
+                    }
+                    category.build();
+                }
+            })
+        }
     </script>
 
 
 
-    <div class="shop-view">
-        <div class="categories">
+    <div class="shop-view" row>
+        <div class="categories col-sm-2">
             {% for category in productCategories %}
                 <div class="product-category">
-                {{ category.name }}
+                    <a href="javascript:void(0)"
+                       onclick="loadProductCategory('{{ category.name }}')">{{ category.name }}</a>
                 </div>
             {% endfor %}
         </div>
-        <div class="main-shop">
+        <div class="main-shop col-sm-10">
             <div class="shopping-cart row">
                 <div class="col-sm-2">
                     <p>Preis: CHF <span id="shopping-cart-price"></span>.-</p>
@@ -84,34 +108,34 @@
                     <a href="checkout/">Bestellen</a>
                 </div>
             </div>
-            <div class='row'>
-                {% for product in products %}
-                    <div class='col-sm-4 shop-element white-link rounded'>
-                        <a href='/' class='white-link '>
-                            <div class='row'>
-                                <div class='col-sm-6'>
-                                    <h1 class='shop-element-title'>{{ product.name }}</h1>
-                                    {% if product.description != "" %}
-                                        <p class='shop-element-description'>{{ product.description }}</p>
-                                    {% endif %}
-                                </div>
-                                <div class='col-sm-6'>
-                                    <img src='{{ product.image.url }}' class='shop-image'>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class='col-sm-6'>
-                                    <p class='shop-price'>CHF {{ product.price }}.-</p>
-                                </div>
-                                <div class='col-sm-6'>
-                                    <a href='{{ product.id }}/add/'>
-                                        <img src='{% static "img/shopping-cart.png" %}' height='30'>
-                                    </a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+            <div class='row' id="products-view">
+{#                {% for product in products %}#}
+{#                    <div class='col-sm-4 shop-element white-link rounded'>#}
+{#                        <a href='/' class='white-link '>#}
+{#                            <div class='row'>#}
+{#                                <div class='col-sm-6'>#}
+{#                                    <h1 class='shop-element-title'>{{ product.name }}</h1>#}
+{#                                    {% if product.description != "" %}#}
+{#                                        <p class='shop-element-description'>{{ product.description }}</p>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                                <div class='col-sm-6'>#}
+{#                                    <img src='{{ product.image.url }}' class='shop-image'>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="row">#}
+{#                                <div class='col-sm-6'>#}
+{#                                    <p class='shop-price'>CHF {{ product.price }}.-</p>#}
+{#                                </div>#}
+{#                                <div class='col-sm-6'>#}
+{#                                    <a href='{{ product.id }}/add/'>#}
+{#                                        <img src='{% static "img/shopping-cart.png" %}' height='30'>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
             </div>
         </div>
     </div>

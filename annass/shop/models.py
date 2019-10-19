@@ -14,6 +14,15 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def to_array(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'price': self.price,
+            'image': self.image.url,
+        }
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
