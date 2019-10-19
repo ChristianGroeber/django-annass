@@ -23,7 +23,7 @@ class ShoppingCart(models.Model):
 
     def calculate_price(self):
         price = 0
-        for product in self.products.all:
+        for product in self.products.all():
             price += product.price
         return price
 

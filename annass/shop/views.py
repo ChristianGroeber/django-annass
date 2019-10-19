@@ -1,11 +1,16 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from .models import Product, ShoppingCart, CartItem
 
 
 def index(request):
     products = Product.objects.filter(is_active=True)
-    return render(request, 'shop/index.html', {"products": products})
+    shoppingCartId = request.COOKIES.get('shoppingCartId')
+    if not shoppingCartId:
+        shoppingCart = ShoppingCart()
+        shoppingCart.save()
+        shoppingCartId = shoppingCart.id
+    return render(request, 'shop/index.html', {"products": products, "shoppingCartId": shoppingCartId})
 
 
 def update_shopping_cart(request):

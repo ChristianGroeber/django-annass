@@ -6,13 +6,46 @@
 {% block title %}Shop{% endblock %}
 
 {% block content %}
+    {% csrf_token %}
     <script src="{% static 'js/ShoppingCart.js' %}"></script>
     <script>
+        document.cookie = "shoppingCartId={{ shoppingCartId }}";
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = jQuery.trim(cookies[i]); // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        let csrftoken = getCookie('csrftoken');
+        console.log(csrftoken); //Ajax call
+
+        function csrfSafeMethod(method) { // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            },
+        });
+
         function updateShoppingCart() {
             $.ajax({
                 url: "{% url 'update_shopping_cart' %}",
                 method: "POST",
-                data: {shoppingCart: 1},
+                data: {shoppingCart: {{ shoppingCartId }}},
                 success: function (data) {
                     console.log(data);
                 }
@@ -32,14 +65,14 @@
 
 
 
-{#    <div class="shopping-cart row">#}
-{#        <div class="col-sm-2">#}
-{#            <p>Preis: CHF {{ price }}.-</p>#}
-{#        </div>#}
-{#        <div class="col-sm-2">#}
-{#            <a href="checkout/">Bestellen</a>#}
-{#        </div>#}
-{#    </div>#}
+    {#    <div class="shopping-cart row">#}
+    {#        <div class="col-sm-2">#}
+    {#            <p>Preis: CHF {{ price }}.-</p>#}
+    {#        </div>#}
+    {#        <div class="col-sm-2">#}
+    {#            <a href="checkout/">Bestellen</a>#}
+    {#        </div>#}
+    {#    </div>#}
     <div class='row'>
         {% for product in products %}
             <div class='col-sm-4 shop-element white-link rounded'>
