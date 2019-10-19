@@ -15,6 +15,16 @@ class Product(models.Model):
         return self.name
 
 
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255, verbose_name="Beschreibung", null=True)
+    products = models.ManyToManyField(Product)
+    is_active = models.BooleanField(default=True, verbose_name='Aktiv?')
+
+    def __str__(self):
+        return self.name
+
+
 class ShoppingCart(models.Model):
     products = models.ManyToManyField(Product)
 

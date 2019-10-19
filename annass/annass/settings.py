@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'pages.context_processors.kontakt',
                 'pages.context_processors.version',
+                'pages.context_processors.create_main_category_if_not_exists',
             ],
         },
     },
