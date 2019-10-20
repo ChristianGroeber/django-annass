@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome</h1>
+    <h1>Welcome</h1>
 
+    <div class="post-feed">
+        {% for entry in blogentries %}
+            {% if entry.main_image %}
+                <div class="blogentry card" style="border: none">
+                    <img alt="{{ entry.title }}" src="{{ entry.main_image.url }}">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -14,6 +14,7 @@ class BlogEntry(models.Model):
     content = MartorField(verbose_name='Text')
     date_posted = DateTimeField(default=timezone.now, verbose_name='Datum geposted')
     active = models.BooleanField(default=False, verbose_name='Aktiv?')
+    on_home = models.BooleanField(default=False, verbose_name='Auf der Home Seite anzeigen?')
 
     def __str__(self):
         return self.title
