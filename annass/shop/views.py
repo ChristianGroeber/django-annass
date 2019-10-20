@@ -34,7 +34,7 @@ def add_item_to_cart(request):
 
 def load_product_category(request):
     category = ProductCategory.objects.get(name=request.POST.get('categoryName'))
-    products = category.products.all()
+    products = category.products.filter(is_active=True)
     return JsonResponse({'products': queryset_to_array(products), 'categoryName': request.POST.get('categoryName')})
 
 

@@ -143,7 +143,7 @@ class Product {
 
     build() {
         return "" +
-            "<div class='product'>" +
+            "<div class='product card'>" +
             "   <div class='product-image'>" +
             "       <img src='" + this.imageUrl + "'>" +
             "   </div>" +

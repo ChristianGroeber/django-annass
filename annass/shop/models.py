@@ -7,7 +7,7 @@ from django.db.models import ImageField
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True)
-    price = models.CharField(max_length=255, blank=False)
+    price = models.IntegerField(max_length=255, blank=False)
     image = ImageField(upload_to="shop/product-images", blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Aktiv?')
 
@@ -26,8 +26,8 @@ class Product(models.Model):
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=255, verbose_name="Beschreibung", null=True)
-    products = models.ManyToManyField(Product)
+    description = models.CharField(max_length=255, verbose_name="Beschreibung", blank=True)
+    products = models.ManyToManyField(Product, null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Aktiv?')
 
     def __str__(self):

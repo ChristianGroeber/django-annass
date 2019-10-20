@@ -5,7 +5,7 @@ def kontakt(request):
 
 
 def version(request):
-    return {'version': '1.6'}
+    return {'version': '0.7'}
 
 
 def create_main_category_if_not_exists(request):
