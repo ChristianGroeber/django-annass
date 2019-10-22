@@ -13,7 +13,7 @@ class ShoppingCart {
     }
 
     addProduct(product) {
-        for(let i = 0; i < this.productList.length; i++) {
+        for (let i = 0; i < this.productList.length; i++) {
             if (product === this.productList[i] || product.getId() === this.productList[i].getId()) {
                 this.productList.push(product);
             }
@@ -142,17 +142,25 @@ class Product {
     }
 
     build() {
-        return "" +
-            "<div class='product card'>" +
-            "   <div class='product-image'>" +
-            "       <img src='" + this.imageUrl + "'>" +
-            "   </div>" +
+        let ret = "<div class='product card'>";
+
+        if (this.imageUrl) {
+            ret += "" +
+                "   <div class='product-image'>" +
+                "       <img src='" + this.imageUrl + "'>" +
+                "   </div>";
+        }
+
+        ret += "" +
             "   <div class='product-title'>" +
             "       <h3>" + this.name + "</h3>" +
             "   </div>" +
             "   <div class='product-price'>" +
-            "       <p>" + this.price + "</p>" +
+            "       <p>CHF " + this.price + ".-</p>" +
             "   </div>" +
-            "</div>"
+            "   <a href='javascript:void(0)' onclick='addItemToShoppingCart(" + this.getId() + ")'>Zum Einkaufswagen hinzufügen</a>" +
+            "</div>";
+
+        return ret;
     }
 }

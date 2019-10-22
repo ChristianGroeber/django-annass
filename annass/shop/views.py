@@ -22,12 +22,17 @@ def update_shopping_cart(request):
 
 
 def add_item_to_cart(request):
+    if not request.POST.get('productId'):
+        return JsonResponse({})
+
     cart = ShoppingCart.objects.get(request.POST.get('shoppingCart'))
-    item = Product.objects.get(request.POST.get('product'))
+    item = Product.objects.get(request.POST.get('productId'))
 
     cartItem = CartItem()
     cartItem.product = item
     cartItem.cart = cart
+
+    cartItem.save()
 
     return JsonResponse({})
 
