@@ -14,6 +14,10 @@ def index(request):
     return render(request, 'shop/index.html', {"products": products, "productCategories": productCategories, "shoppingCartId": shoppingCartId})
 
 
+def checkout(request):
+    return render(request, 'shop/index.html')
+
+
 def update_shopping_cart(request):
     shoppingCartId = request.POST.get('shoppingCart')
     cart = ShoppingCart.objects.get(pk=shoppingCartId)
