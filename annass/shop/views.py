@@ -25,16 +25,18 @@ def add_item_to_cart(request):
     if not request.POST.get('productId'):
         return JsonResponse({})
 
-    cart = ShoppingCart.objects.get(request.POST.get('shoppingCart'))
-    item = Product.objects.get(request.POST.get('productId'))
+    cart = ShoppingCart.objects.get(id=request.POST.get('shoppingCart'))
+    item = Product.objects.get(id=request.POST.get('productId'))
 
     cartItem = CartItem()
     cartItem.product = item
-    cartItem.cart = cart
-
     cartItem.save()
 
-    return JsonResponse({})
+    cart.products.add(cartItem)
+
+    cart.save()
+
+    return JsonResponse({'price': cart.calculate_price()})
 
 
 def load_product_category(request):

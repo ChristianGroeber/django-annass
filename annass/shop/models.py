@@ -39,8 +39,15 @@ class ProductCategory(models.Model):
         return self.name
 
 
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name
+
+
 class ShoppingCart(models.Model):
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(CartItem, blank=True)
 
     def __str__(self):
         return "Einkaufswagen" + str(self.id)
@@ -48,13 +55,5 @@ class ShoppingCart(models.Model):
     def calculate_price(self):
         price = 0
         for product in self.products.all():
-            price += product.price
+            price += product.product.price
         return price
-
-
-class CartItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.product.name
