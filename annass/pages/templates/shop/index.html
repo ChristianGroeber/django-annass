@@ -32,7 +32,6 @@
         }
 
         let csrftoken = getCookie('csrftoken');
-        console.log(csrftoken); //Ajax call
 
         function csrfSafeMethod(method) { // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));

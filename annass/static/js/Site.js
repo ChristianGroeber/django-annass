@@ -8,38 +8,6 @@ $(document).ready(function () {
         panel.toggleClass('collapse');
     });
 
-    let lastScrollTop = 0;
-    let navShowing = true;
-
-    $(document).scroll(function () {
-        let newScrollTop = $(document).scrollTop();
-        let nav = $('nav');
-        if (lastScrollTop > newScrollTop && !navShowing) {
-            navShowing = true;
-            nav.addClass('show-nav');
-            nav.removeClass('hide-nav');
-            // nav.css('padding-top', $('nav').height() + 'px');
-            nav.slideDown("slow");
-        } else if (lastScrollTop < newScrollTop) {
-            if (navShowing) {
-                $('.hide-nav').css('top', newScrollTop + 'px');
-            }
-            navShowing = false;
-            nav.removeClass('show-nav');
-            nav.addClass('hide-nav');
-            $('main').css('padding-top', '0');
-        }
-
-        if (newScrollTop == 0) {
-            console.log(newScrollTop);
-            console.log('paddening');
-            console.log($('main'));
-            $('main').css('padding-top', '100px');
-        }
-
-        lastScrollTop = newScrollTop;
-    });
-
     let toCheck = $('.navbar-collapse');
     toCheck.toggle();
     toCheck.slideToggle();

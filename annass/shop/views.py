@@ -15,7 +15,18 @@ def index(request):
 
 
 def checkout(request):
-    return render(request, 'shop/index.html')
+    cart = ShoppingCart.objects.get(pk=request.COOKIES.get('shoppingCartId'))
+    return render(request, 'shop/checkout.html', {'products': cart.to_array()})
+
+
+def update_amount_of_products(request):
+    product = CartItem.objects.get(pk=request.POST.get('itemId'))
+    if request.POST.get('action') == 'remove':
+        product.amount -= 1
+    else:
+        product.amount += 1
+    product.save()
+    return JsonResponse({})
 
 
 def update_shopping_cart(request):
@@ -26,21 +37,53 @@ def update_shopping_cart(request):
 
 
 def add_item_to_cart(request):
-    if not request.POST.get('productId'):
+    if not request.POST.get('productId') and not request.POST.get('cartItemId'):
         return JsonResponse({})
+    cart = ShoppingCart.objects.get(id=request.COOKIES.get('shoppingCartId'))
 
-    cart = ShoppingCart.objects.get(id=request.POST.get('shoppingCart'))
-    item = Product.objects.get(id=request.POST.get('productId'))
+    print(request.POST)
 
-    cartItem = CartItem()
-    cartItem.product = item
-    cartItem.save()
+    cart_item = None
+    item = None
+    if request.POST.get('productId'):
+        item = Product.objects.get(id=request.POST.get('productId'))
+    else:
+        cart_item = CartItem.objects.get(pk=request.POST.get('cartItemId'))
 
-    cart.products.add(cartItem)
+    if item:
+        for product in cart.products.all():
+            if item == product.product:
+                cart_item = product
+
+    if not cart_item:
+        cart_item = CartItem()
+        cart_item.product = item
+        cart_item.amount = 0
+        cart_item.save()
+        cart.products.add(cart_item)
+
+    cart_item.amount += 1
+    cart_item.save()
 
     cart.save()
 
-    return JsonResponse({'price': cart.calculate_price()})
+    return JsonResponse({'productId': request.POST.get('cartItemId'), 'price': cart.calculate_price(), 'amount': cart_item.amount, 'productPrice': cart_item.product.price * cart_item.amount})
+
+
+def remove_item_from_cart(request):
+    if not request.POST.get('productId'):
+        return JsonResponse({})
+    item = CartItem.objects.get(pk=request.POST.get('productId'))
+    item.amount -= 1
+    item.save()
+
+    cart = None
+    for shopping_cart in ShoppingCart.objects.all():
+        if item in shopping_cart.products.all():
+            cart = shopping_cart
+            break
+
+    return JsonResponse({'productId': request.POST.get('productId'), 'price': cart.calculate_price(), 'amount': item.amount, 'productPrice': item.product.price * item.amount})
 
 
 def load_product_category(request):

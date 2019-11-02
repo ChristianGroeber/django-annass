@@ -41,6 +41,7 @@ class ProductCategory(models.Model):
 
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    amount = models.IntegerField()
 
     def __str__(self):
         return self.product.name
@@ -55,5 +56,12 @@ class ShoppingCart(models.Model):
     def calculate_price(self):
         price = 0
         for product in self.products.all():
-            price += product.product.price
+            price += product.product.price * product.amount
         return price
+
+    def to_array(self):
+        products = []
+        for product in self.products.all():
+            products.append(product)
+        print(products)
+        return products

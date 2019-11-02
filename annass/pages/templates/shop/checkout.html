@@ -3,7 +3,86 @@
 {% block title %}Einkaufswagen{% endblock %}
 
 {% block content %}
-    <div class="shop-view row">
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = jQuery.trim(cookies[i]); // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
+        let csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) { // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            },
+        });
+
+        function addItemToShoppingCart(productId) {
+            $.ajax({
+                url: "{% url 'add_item_to_cart' %}",
+                method: "POST",
+                data: {
+                    cartItemId: productId,
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#shopping-cart-price').text(data['price']);
+                    $('#product_' + data['productId']).text(data['amount']);
+                    $('#product_' + data['productId'] + '_price').text(data['productPrice']);
+                }
+            })
+        }
+
+        function removeItemFromShoppingCart(productId) {
+            if ($('#product_' + productId).text() <= parseInt(0)) {
+                return null;
+            }
+            $.ajax({
+                url: "{% url 'remove_item_from_cart' %}",
+                method: "POST",
+                data: {
+                    productId: productId,
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#shopping-cart-price').text(data['price']);
+                    $('#product_' + data['productId']).text(data['amount']);
+                    $('#product_' + data['productId'] + '_price').text(data['productPrice']);
+                }
+            })
+        }
+    </script>
+    <div class="shop-view row">
+        {% for product in products %}
+            <div class="row product col-sm-12">
+                <div class="col-sm-4">
+                    <p>{{ product.product.name }}<a href="javascript:void(0)"
+                                                    onclick="removeItemFromShoppingCart('{{ product.id }}')">-</a> <span
+                            id="product_{{ product.id }}">{{ product.amount }}</span><a href="javascript:void(0)"
+                                                                                        onclick="addItemToShoppingCart('{{ product.id }}')">+</a>
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <p><span id="product_{{ product.id }}_price"></span></p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
